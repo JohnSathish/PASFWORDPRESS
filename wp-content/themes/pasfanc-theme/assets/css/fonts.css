@@ -1,0 +1,13 @@
+/**
+ * Oswald font - local with CDN fallback
+ * To use local only: place Oswald-Regular.woff2 in assets/fonts/
+ * Download from: https://fonts.google.com/specimen/Oswald (Download family)
+ */
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/Oswald-Regular.woff2') format('woff2'),
+       url('https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvsUZiZSSUhiCXAA.woff2') format('woff2');
+}

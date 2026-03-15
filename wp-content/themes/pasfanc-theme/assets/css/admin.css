@@ -1,0 +1,200 @@
+/**
+ * PASF College - Admin Dashboard & Sidebar Customization
+ * Brands the WordPress admin with college colours (dark green, gold).
+ *
+ * @package pasfanc-theme
+ */
+
+/* College colours */
+:root {
+  --pasf-admin-primary: #1a4a3c;
+  --pasf-admin-primary-dark: #153d32;
+  --pasf-admin-accent: #d4af37;
+  --pasf-admin-accent-light: #f0d060;
+}
+
+/* Admin bar - top bar */
+#wpadminbar {
+  background: linear-gradient(135deg, var(--pasf-admin-primary-dark) 0%, var(--pasf-admin-primary) 100%) !important;
+}
+#wpadminbar .ab-item:hover,
+#wpadminbar a:hover,
+#wpadminbar .ab-submenu .ab-item:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: var(--pasf-admin-accent-light) !important;
+}
+#wpadminbar #adminbarsearch:before,
+#wpadminbar .ab-icon:before,
+#wpadminbar .ab-item:before {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+#wpadminbar .quicklinks .menupop ul {
+  background: var(--pasf-admin-primary-dark) !important;
+  border-color: rgba(212, 175, 55, 0.3) !important;
+}
+
+/* Sidebar - main nav */
+#adminmenumain,
+#adminmenuback,
+#adminmenuwrap {
+  background: var(--pasf-admin-primary-dark) !important;
+}
+#adminmenu {
+  background: var(--pasf-admin-primary-dark) !important;
+}
+#adminmenu .wp-menu-image:before {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+#adminmenu li.menu-top:hover .wp-menu-image:before,
+#adminmenu li.opensub .wp-menu-image:before {
+  color: var(--pasf-admin-accent) !important;
+}
+#adminmenu li.current .wp-menu-image:before,
+#adminmenu li.wp-has-current-submenu .wp-menu-image:before {
+  color: var(--pasf-admin-accent) !important;
+}
+#adminmenu .wp-has-current-submenu .wp-submenu,
+#adminmenu .wp-has-current-submenu .wp-submenu.sub-open,
+#adminmenu .wp-has-current-submenu.opensub .wp-submenu,
+#adminmenu a.wp-has-current-submenu:focus + .wp-submenu {
+  background: rgba(0, 0, 0, 0.2) !important;
+  border-left: 3px solid var(--pasf-admin-accent) !important;
+}
+#adminmenu .wp-submenu li a {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+#adminmenu .wp-submenu li a:hover {
+  color: var(--pasf-admin-accent-light) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+#adminmenu li a:focus {
+  color: var(--pasf-admin-accent-light) !important;
+}
+#adminmenu .menu-top:hover,
+#adminmenu .opensub > .menu-top {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+#adminmenu li.current,
+#adminmenu li.wp-has-current-submenu {
+  background: rgba(255, 255, 255, 0.12) !important;
+}
+#adminmenu li.wp-has-current-submenu > a {
+  color: #fff !important;
+  border-left: 3px solid var(--pasf-admin-accent) !important;
+}
+
+/* Collapse button */
+#adminmenu .collapse-button {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+#adminmenu .collapse-button:hover {
+  color: var(--pasf-admin-accent) !important;
+}
+
+/* Dashboard welcome panel enhancement */
+.welcome-panel {
+  border-left-color: var(--pasf-admin-accent) !important;
+}
+.welcome-panel h2 {
+  color: var(--pasf-admin-primary-dark) !important;
+}
+.welcome-panel .welcome-panel-close:before {
+  color: var(--pasf-admin-primary) !important;
+}
+
+/* Post/page list and buttons */
+.wp-core-ui .button-primary {
+  background: var(--pasf-admin-primary) !important;
+  border-color: var(--pasf-admin-primary-dark) !important;
+}
+.wp-core-ui .button-primary:hover,
+.wp-core-ui .button-primary:focus {
+  background: var(--pasf-admin-primary-dark) !important;
+  border-color: var(--pasf-admin-primary) !important;
+}
+.wp-core-ui .button-secondary:hover {
+  border-color: var(--pasf-admin-accent) !important;
+  color: var(--pasf-admin-primary) !important;
+}
+
+/* Notices and updates */
+.notice-info {
+  border-left-color: var(--pasf-admin-primary) !important;
+}
+.notice-success {
+  border-left-color: #46b450 !important;
+}
+.notice-warning,
+.update-nag {
+  border-left-color: var(--pasf-admin-accent) !important;
+}
+.notice-error {
+  border-left-color: #dc3545 !important;
+}
+
+/* Dashboard widgets */
+.postbox .hndle {
+  border-bottom-color: rgba(26, 74, 60, 0.2) !important;
+}
+.postbox .hndle:hover {
+  color: var(--pasf-admin-primary) !important;
+}
+.postbox-header {
+  border-bottom: 1px solid rgba(26, 74, 60, 0.15);
+}
+
+/* PASF College Quick Links widget */
+.pasfanc-dash-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.75rem;
+}
+.pasfanc-dash-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.85rem;
+  background: rgba(26, 74, 60, 0.06);
+  border-radius: 6px;
+  color: var(--pasf-admin-primary) !important;
+  text-decoration: none !important;
+  border-left: 3px solid var(--pasf-admin-accent);
+  transition: background 0.2s, transform 0.2s;
+}
+.pasfanc-dash-link:hover {
+  background: rgba(26, 74, 60, 0.12);
+  color: var(--pasf-admin-primary-dark) !important;
+  transform: translateX(4px);
+}
+.pasfanc-dash-link .dashicons {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  color: var(--pasf-admin-accent);
+}
+
+/* Dashboard main area - subtle polish */
+#wpcontent {
+  background: #f0f4f2;
+}
+.wp-core-ui .button-group.button-large .button,
+.wp-core-ui .button.button-large {
+  padding: 8px 20px;
+  border-radius: 6px;
+}
+
+/* Admin notices - align with theme */
+.notice-warning {
+  border-left-color: var(--pasf-admin-accent) !important;
+}
+.notice-success {
+  border-left-color: var(--pasf-admin-primary) !important;
+}
+
+/* Collapsed sidebar - keep icons visible */
+#adminmenu li.menu-top .wp-menu-image {
+  opacity: 1;
+}
+#adminmenu.folded .wp-menu-name {
+  display: none;
+}

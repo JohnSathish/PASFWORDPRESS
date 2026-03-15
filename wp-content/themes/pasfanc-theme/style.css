@@ -1,0 +1,131 @@
+/*
+Theme Name: PASF-Abong Noga College
+Theme URI: https://pasfanc.ac.in/
+Author: PASF College
+Author URI: https://pasfanc.ac.in/
+Description: Custom WordPress theme for PASF-Abong Noga College. Replicates the design and structure of the college website with fully editable sections from the WordPress admin.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.4
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: pasfanc-theme
+*/
+
+/* ==========================================================================
+   CSS Variables - Design tokens (editable via Customizer)
+   ========================================================================== */
+:root {
+  --pasf-primary: #1a4a3c;
+  --pasf-primary-dark: #153d32;
+  --pasf-secondary: #2d5016;
+  --pasf-accent: #4a7c23;
+  --pasf-text: #333333;
+  --pasf-text-light: #666666;
+  --pasf-bg: #ffffff;
+  --pasf-bg-alt: #f8f9fa;
+  --pasf-border: #e0e0e0;
+  --pasf-font-heading: 'Georgia', 'Times New Roman', serif;
+  --pasf-font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  --pasf-container-max: 1200px;
+  --pasf-spacing: 1rem;
+  --pasf-radius: 4px;
+}
+
+/* ==========================================================================
+   Base Styles
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+body {
+  font-family: var(--pasf-font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--pasf-text);
+  background-color: var(--pasf-bg);
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+/* Sticky footer - keeps footer at bottom when content is sparse */
+#page {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.site-main {
+  flex: 1 0 auto;
+  min-height: 1px; /* ensures flex growth works in all browsers */
+}
+.site-footer {
+  flex-shrink: 0;
+  margin-top: auto; /* pushes footer to bottom when content is short */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--pasf-font-heading);
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 0;
+}
+
+a {
+  color: var(--pasf-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--pasf-primary-dark);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.container {
+  max-width: var(--pasf-container-max);
+  margin: 0 auto;
+  padding: 0 var(--pasf-spacing);
+}
+
+/* Button styles */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--pasf-primary);
+  color: #fff !important;
+  border: none;
+  border-radius: var(--pasf-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+  background-color: var(--pasf-primary-dark);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 2px solid var(--pasf-primary);
+  color: var(--pasf-primary) !important;
+}
+
+.btn-outline:hover {
+  background-color: var(--pasf-primary);
+  color: #fff !important;
+}
