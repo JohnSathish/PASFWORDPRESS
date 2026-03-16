@@ -86,8 +86,9 @@
 .site-header .main-navigation a:hover {
   color: #d4af37 !important;
 }
-.main-navigation .nav-menu li:not(:last-child)::after,
-#primary-menu.nav-menu li:not(:last-child)::after {
+/* Pipe only for top-level items; sub-menus must not show it */
+.main-navigation .nav-menu > li:not(:last-child)::after,
+#primary-menu.nav-menu > li:not(:last-child)::after {
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -253,31 +254,27 @@
   transform: scale(1.05);
   box-shadow: 0 0 16px rgba(72, 207, 173, 0.3);
 }
+/* Use SVG icons from template - hide legacy ::before symbols */
 .guiding-icon-motto::before,
 .guiding-icon-aim::before,
 .guiding-icon-vision::before,
 .guiding-icon-mission::before {
-  content: attr(data-icon);
-  background: linear-gradient(135deg, #00d4ff, var(--pasf-primary));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  content: none !important;
+  display: none !important;
 }
-.guiding-icon-motto::before,
-.guiding-icon-aim::before,
-.guiding-icon-vision::before,
-.guiding-icon-mission::before {
-  content: '';
-  display: block;
-  background: linear-gradient(135deg, #00d4ff, var(--pasf-primary));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+.guiding-icon {
+  width: 52px;
+  height: 52px;
+  margin-bottom: 1rem;
 }
-.guiding-icon-motto::before { content: '◆'; }
-.guiding-icon-aim::before { content: '◎'; }
-.guiding-icon-vision::before { content: '◉'; }
-.guiding-icon-mission::before { content: '⚡'; }
+.guiding-icon svg {
+  width: 26px;
+  height: 26px;
+  color: var(--pasf-primary);
+}
+.guiding-card:hover .guiding-icon {
+  transform: scale(1.1);
+}
 
 /* Card h3 - stylish wavy underline */
 .guiding-card h3 {

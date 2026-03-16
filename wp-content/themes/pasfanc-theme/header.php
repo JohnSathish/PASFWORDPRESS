@@ -113,3 +113,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</nav>
 		</div>
 	</header>
+
+	<?php pasfanc_breadcrumb(); ?>

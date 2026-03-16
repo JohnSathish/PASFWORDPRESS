@@ -55,8 +55,8 @@ function pasfanc_theme_scripts() {
 	if ( is_front_page() ) {
 		wp_enqueue_script( 'pasfanc-flash-news', PASFANC_THEME_URI . '/assets/js/flash-news.js', array( 'jquery' ), $version, true );
 	}
-	// GLightbox for gallery lightbox (homepage + gallery archive)
-	if ( is_front_page() || is_post_type_archive( 'pasf_gallery' ) ) {
+	// GLightbox for gallery lightbox (homepage + gallery archive + gallery page)
+	if ( is_front_page() || is_post_type_archive( 'pasf_gallery' ) || is_page( 'gallery' ) ) {
 		wp_enqueue_style( 'glightbox', 'https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/css/glightbox.min.css', array(), '3.2.0' );
 		wp_enqueue_script( 'glightbox', 'https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/js/glightbox.min.js', array(), '3.2.0', true );
 		wp_enqueue_script( 'pasfanc-gallery-lightbox', PASFANC_THEME_URI . '/assets/js/gallery-lightbox.js', array( 'glightbox' ), $version, true );

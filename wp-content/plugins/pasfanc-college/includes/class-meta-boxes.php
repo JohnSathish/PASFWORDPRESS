@@ -84,6 +84,13 @@ class Pasfanc_Meta_Boxes {
 			'pasf_staff',
 			'normal'
 		);
+		add_meta_box(
+			'pasf_question_paper_details',
+			__( 'Question Paper Details', 'pasfanc-college' ),
+			array( __CLASS__, 'render_question_paper_meta' ),
+			'pasf_question_paper',
+			'normal'
+		);
 	}
 
 	/**
@@ -95,7 +102,7 @@ class Pasfanc_Meta_Boxes {
 			return;
 		}
 		$load_gallery = ( 'pasf_gallery' === $screen->post_type );
-		$load_media = ( 'pasf_flash' === $screen->post_type || 'pasf_download' === $screen->post_type || 'pasf_staff' === $screen->post_type );
+		$load_media = ( 'pasf_flash' === $screen->post_type || 'pasf_download' === $screen->post_type || 'pasf_staff' === $screen->post_type || 'pasf_question_paper' === $screen->post_type );
 
 		if ( $load_gallery ) {
 			wp_enqueue_media();
@@ -286,6 +293,69 @@ class Pasfanc_Meta_Boxes {
 		<?php
 	}
 
+	/**
+	 * Get available course options for question papers.
+	 */
+	public static function get_question_paper_courses() {
+		return array(
+			'Class XI & XII Arts'      => __( 'Class XI & XII Arts', 'pasfanc-college' ),
+			'Class XI & XII Commerce'  => __( 'Class XI & XII Commerce', 'pasfanc-college' ),
+			'BA Degree Course'         => __( 'BA Degree Course', 'pasfanc-college' ),
+			'English'                  => __( 'English', 'pasfanc-college' ),
+			'Garo'                     => __( 'Garo', 'pasfanc-college' ),
+			'Economics'                => __( 'Economics', 'pasfanc-college' ),
+			'History'                  => __( 'History', 'pasfanc-college' ),
+			'Political Science'        => __( 'Political Science', 'pasfanc-college' ),
+			'Philosophy'               => __( 'Philosophy', 'pasfanc-college' ),
+			'BCA'                      => __( 'BCA', 'pasfanc-college' ),
+			'Other'                    => __( 'Other', 'pasfanc-college' ),
+		);
+	}
+
+	public static function render_question_paper_meta( $post ) {
+		wp_nonce_field( 'pasf_question_paper_meta', 'pasf_question_paper_meta_nonce' );
+		$course   = get_post_meta( $post->ID, '_pasf_question_paper_course', true );
+		$year     = get_post_meta( $post->ID, '_pasf_question_paper_year', true );
+		$file_id  = get_post_meta( $post->ID, '_pasf_question_paper_file', true );
+		$file_name = '';
+		if ( $file_id ) {
+			$file = get_attached_file( (int) $file_id );
+			if ( $file ) {
+				$file_name = basename( $file );
+			}
+		}
+		$courses = self::get_question_paper_courses();
+		$years   = range( (int) date( 'Y' ), (int) date( 'Y' ) - 10 );
+		?>
+		<p>
+			<label for="pasf_question_paper_course"><?php esc_html_e( 'Course', 'pasfanc-college' ); ?></label><br>
+			<select id="pasf_question_paper_course" name="pasf_question_paper_course" class="widefat" required>
+				<option value=""><?php esc_html_e( '— Select Course —', 'pasfanc-college' ); ?></option>
+				<?php foreach ( $courses as $val => $label ) : ?>
+					<option value="<?php echo esc_attr( $val ); ?>" <?php selected( $course, $val ); ?>><?php echo esc_html( $label ); ?></option>
+				<?php endforeach; ?>
+			</select>
+		</p>
+		<p>
+			<label for="pasf_question_paper_year"><?php esc_html_e( 'Year', 'pasfanc-college' ); ?></label><br>
+			<select id="pasf_question_paper_year" name="pasf_question_paper_year" class="widefat" required>
+				<option value=""><?php esc_html_e( '— Select Year —', 'pasfanc-college' ); ?></option>
+				<?php foreach ( $years as $y ) : ?>
+					<option value="<?php echo esc_attr( $y ); ?>" <?php selected( $year, (string) $y ); ?>><?php echo esc_html( (string) $y ); ?></option>
+				<?php endforeach; ?>
+			</select>
+		</p>
+		<p class="description"><?php esc_html_e( 'Enter the Subject / Paper name in the Title field above (e.g., Data Structures, DBMS).', 'pasfanc-college' ); ?></p>
+		<p>
+			<label for="pasf_question_paper_file"><?php esc_html_e( 'Upload File (PDF)', 'pasfanc-college' ); ?></label><br>
+			<input type="hidden" id="pasf_question_paper_file" name="pasf_question_paper_file" value="<?php echo esc_attr( $file_id ); ?>">
+			<button type="button" class="button pasf-upload-file" data-target="pasf_question_paper_file" data-type="application/pdf"><?php esc_html_e( 'Select PDF', 'pasfanc-college' ); ?></button>
+			<span class="pasf-file-name"><?php echo esc_html( $file_name ); ?></span>
+		</p>
+		<p class="description"><?php esc_html_e( 'Title = Subject/Paper name. Course, Year and PDF file are required.', 'pasfanc-college' ); ?></p>
+		<?php
+	}
+
 	public static function render_download_meta( $post ) {
 		wp_nonce_field( 'pasf_download_meta', 'pasf_download_meta_nonce' );
 		$file_id = get_post_meta( $post->ID, '_pasf_download_file', true );
@@ -402,6 +472,20 @@ class Pasfanc_Meta_Boxes {
 				}
 				if ( isset( $_POST['pasf_staff_order'] ) ) {
 					update_post_meta( $post_id, '_pasf_staff_order', absint( $_POST['pasf_staff_order'] ) );
+				}
+			}
+		}
+
+		if ( 'pasf_question_paper' === $post->post_type ) {
+			if ( isset( $_POST['pasf_question_paper_meta_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['pasf_question_paper_meta_nonce'] ) ), 'pasf_question_paper_meta' ) ) {
+				if ( isset( $_POST['pasf_question_paper_course'] ) ) {
+					update_post_meta( $post_id, '_pasf_question_paper_course', sanitize_text_field( wp_unslash( $_POST['pasf_question_paper_course'] ) ) );
+				}
+				if ( isset( $_POST['pasf_question_paper_year'] ) ) {
+					update_post_meta( $post_id, '_pasf_question_paper_year', sanitize_text_field( wp_unslash( $_POST['pasf_question_paper_year'] ) ) );
+				}
+				if ( isset( $_POST['pasf_question_paper_file'] ) ) {
+					update_post_meta( $post_id, '_pasf_question_paper_file', absint( $_POST['pasf_question_paper_file'] ) );
 				}
 			}
 		}

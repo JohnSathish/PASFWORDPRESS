@@ -14,6 +14,7 @@ get_header();
 	<?php get_template_part( 'template-parts/about' ); ?>
 	<?php get_template_part( 'template-parts/guiding-principles' ); ?>
 	<?php get_template_part( 'template-parts/principal-message' ); ?>
+	<?php get_template_part( 'template-parts/president-message' ); ?>
 	<?php get_template_part( 'template-parts/courses-preview' ); ?>
 	<?php get_template_part( 'template-parts/why-choose' ); ?>
 	<?php get_template_part( 'template-parts/news-events' ); ?>

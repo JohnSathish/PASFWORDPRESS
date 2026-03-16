@@ -296,6 +296,60 @@ function pasfanc_customize_register( $wp_customize ) {
 		'type'    => 'textarea',
 	) );
 
+	/* === PRESIDENT MESSAGE === */
+	$wp_customize->add_section( 'pasfanc_president', array(
+		'title'    => __( 'President Message', 'pasfanc-theme' ),
+		'priority' => 41,
+	) );
+	$wp_customize->add_setting( 'pasfanc_president_name', array(
+		'default'           => 'Dr. Mrs. Jasmine B A Sangma',
+		'sanitize_callback' => 'sanitize_text_field',
+	) );
+	$wp_customize->add_control( 'pasfanc_president_name', array(
+		'label'   => __( 'President Name', 'pasfanc-theme' ),
+		'section' => 'pasfanc_president',
+		'type'    => 'text',
+	) );
+	$wp_customize->add_setting( 'pasfanc_president_image', array(
+		'default'           => '',
+		'sanitize_callback' => 'absint',
+	) );
+	$wp_customize->add_control( new WP_Customize_Media_Control( $wp_customize, 'pasfanc_president_image', array(
+		'label'       => __( 'President Image', 'pasfanc-theme' ),
+		'description' => __( 'Upload President photo (headshot). Shown in the President Message section.', 'pasfanc-theme' ),
+		'section'     => 'pasfanc_president',
+		'mime_type'   => 'image',
+	) ) );
+	$president_default = "Dear students,\n\nIt is heartening to see PASF Abong Noga College embark on yet another journey of second academic year of its BA Degree Course. The previous years have seen many milestones of which we can be proud of. The Affiliation from NEHU and the successful establishment of an Exam Centre are a few of them besides the routine classes and activities which are carried out for the academic enrichment and to develop the character and intellect of the students. One of the most significant is the process of leading to the adoption of the PASF Abong Noga College as People's College by the Government of Meghalaya which will provide financial help and a promise to enhance the educational standards of Meghalaya as a whole.";
+	$wp_customize->add_setting( 'pasfanc_president_message', array(
+		'default'           => $president_default,
+		'sanitize_callback' => 'wp_kses_post',
+	) );
+	$wp_customize->add_control( 'pasfanc_president_message', array(
+		'label'       => __( 'President Message (excerpt)', 'pasfanc-theme' ),
+		'description' => __( 'Short excerpt shown on homepage. Full message on President Message page.', 'pasfanc-theme' ),
+		'section'     => 'pasfanc_president',
+		'type'        => 'textarea',
+	) );
+	$wp_customize->add_setting( 'pasfanc_president_title', array(
+		'default'           => 'President, Governing Body',
+		'sanitize_callback' => 'sanitize_text_field',
+	) );
+	$wp_customize->add_control( 'pasfanc_president_title', array(
+		'label'   => __( 'President Title/Designation', 'pasfanc-theme' ),
+		'section' => 'pasfanc_president',
+		'type'    => 'text',
+	) );
+	$wp_customize->add_setting( 'pasfanc_president_qualification', array(
+		'default'           => 'PhD',
+		'sanitize_callback' => 'sanitize_text_field',
+	) );
+	$wp_customize->add_control( 'pasfanc_president_qualification', array(
+		'label'   => __( 'President Qualification (e.g. PhD)', 'pasfanc-theme' ),
+		'section' => 'pasfanc_president',
+		'type'    => 'text',
+	) );
+
 	/* === WHY CHOOSE (4 cards) === */
 	$wp_customize->add_section( 'pasfanc_why_choose', array(
 		'title'    => __( 'Why Choose Us', 'pasfanc-theme' ),
@@ -452,6 +506,23 @@ function pasfanc_customize_register( $wp_customize ) {
 		'label'   => __( 'Powered by URL', 'pasfanc-theme' ),
 		'section' => 'pasfanc_footer',
 		'type'    => 'url',
+	) );
+
+	/* === ADMIN (Dashboard) === */
+	$wp_customize->add_section( 'pasfanc_admin', array(
+		'title'       => __( 'Admin Dashboard', 'pasfanc-theme' ),
+		'priority'    => 160,
+		'description' => __( 'Options for the WordPress admin area.', 'pasfanc-theme' ),
+	) );
+	$wp_customize->add_setting( 'pasfanc_hide_php_notice', array(
+		'default'           => false,
+		'sanitize_callback' => 'wp_validate_boolean',
+	) );
+	$wp_customize->add_control( 'pasfanc_hide_php_notice', array(
+		'label'       => __( 'Hide PHP Update notice', 'pasfanc-theme' ),
+		'description' => __( 'When enabled, hides the PHP version update recommended notice in the admin area.', 'pasfanc-theme' ),
+		'section'     => 'pasfanc_admin',
+		'type'        => 'checkbox',
 	) );
 }
 add_action( 'customize_register', 'pasfanc_customize_register' );

@@ -15,11 +15,12 @@
 		var $nameSpan = $btn.siblings('.pasf-file-name');
 		if (!$input.length) return;
 
+		var libType = $btn.data('type') || '';
 		var mediaFrame = wp.media({
 			title: 'Select File',
 			button: { text: 'Use This File' },
 			multiple: false,
-			library: { type: '' }
+			library: { type: libType }
 		});
 
 		mediaFrame.on('select', function() {

@@ -91,6 +91,83 @@
   color: var(--pasf-admin-accent) !important;
 }
 
+/* Custom welcome banner */
+.pasfanc-welcome-banner,
+.pasfanc-welcome-banner h1,
+.pasfanc-welcome-banner * {
+  color: #ffffff !important;
+}
+.pasfanc-welcome-banner {
+  margin: 0 20px 16px 0;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, var(--pasf-admin-primary) 0%, var(--pasf-admin-primary-dark) 100%);
+  border-radius: 8px;
+  border-left: 4px solid var(--pasf-admin-accent);
+  box-shadow: 0 2px 8px rgba(26, 74, 60, 0.2);
+  color: #fff;
+}
+.pasfanc-welcome-banner h1,
+#wpbody-content .pasfanc-welcome-banner h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff !important;
+}
+
+/* College stats widget */
+.pasfanc-college-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+}
+.pasfanc-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 1rem 0.75rem;
+  background: rgba(26, 74, 60, 0.06);
+  border-radius: 8px;
+  color: var(--pasf-admin-primary) !important;
+  text-decoration: none !important;
+  border: 1px solid rgba(26, 74, 60, 0.15);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.pasfanc-stat-item:hover {
+  background: rgba(26, 74, 60, 0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(26, 74, 60, 0.15);
+}
+.pasfanc-stat-item .dashicons {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+  color: var(--pasf-admin-accent);
+}
+.pasfanc-stat-count {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.pasfanc-stat-label {
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* Site Health prominence */
+#dashboard_site_health {
+  border: 2px solid var(--pasf-admin-primary) !important;
+  box-shadow: 0 2px 12px rgba(26, 74, 60, 0.15) !important;
+}
+#dashboard_site_health .postbox-header {
+  background: linear-gradient(135deg, rgba(26, 74, 60, 0.08) 0%, rgba(21, 61, 50, 0.05) 100%) !important;
+  border-bottom-color: var(--pasf-admin-accent) !important;
+}
+#dashboard_site_health .hndle {
+  color: var(--pasf-admin-primary-dark) !important;
+  font-weight: 600 !important;
+}
+
 /* Dashboard welcome panel enhancement */
 .welcome-panel {
   border-left-color: var(--pasf-admin-accent) !important;

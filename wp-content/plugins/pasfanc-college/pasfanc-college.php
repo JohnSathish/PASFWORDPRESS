@@ -30,6 +30,7 @@ require_once PASFANC_COLLEGE_DIR . 'includes/class-cpt-courses.php';
 require_once PASFANC_COLLEGE_DIR . 'includes/class-cpt-flash-news.php';
 require_once PASFANC_COLLEGE_DIR . 'includes/class-cpt-downloads.php';
 require_once PASFANC_COLLEGE_DIR . 'includes/class-cpt-teaching-staff.php';
+require_once PASFANC_COLLEGE_DIR . 'includes/class-cpt-question-papers.php';
 require_once PASFANC_COLLEGE_DIR . 'includes/class-meta-boxes.php';
 require_once PASFANC_COLLEGE_DIR . 'includes/class-security.php';
 require_once PASFANC_COLLEGE_DIR . 'public/shortcodes.php';
@@ -198,6 +199,7 @@ function pasfanc_college_activate() {
 	Pasfanc_CPT_Downloads::register_post_type();
 	Pasfanc_CPT_Teaching_Staff::register_post_type();
 	Pasfanc_CPT_Teaching_Staff::register_taxonomy();
+	Pasfanc_CPT_Question_Papers::register_post_type();
 	Pasfanc_CPT_Gallery::register_taxonomy();
 	Pasfanc_CPT_Courses::register_taxonomy();
 	pasfanc_college_insert_default_terms();

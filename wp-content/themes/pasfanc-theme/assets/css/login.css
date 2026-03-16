@@ -1,83 +1,239 @@
 /**
- * PASF College - Login Page Customization
- * Brands the WordPress login page with college colours.
+ * PASF College - Login Page
+ * Visually appealing, modern login design with college branding.
  *
  * @package pasfanc-theme
  */
 
-/* Login body - gradient background */
+/* Import elegant font */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+
+/* CSS variables */
+:root {
+  --pasf-login-green: #1a4a3c;
+  --pasf-login-green-dark: #0d3d18;
+  --pasf-login-gold: #d4af37;
+  --pasf-login-gold-light: #f0d060;
+}
+
+/* Animated gradient background with subtle pattern */
 body.login {
-  background: linear-gradient(135deg, #0d3d18 0%, #1a4a3c 40%, #153d32 70%, #1a5c2e 100%) !important;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0d3d18 0%, #1a4a3c 25%, #153d32 50%, #1a5c2e 75%, #0d3d18 100%) !important;
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
   background-attachment: fixed;
+  position: relative;
+  overflow-x: hidden;
+}
+body.login::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
-/* Login form box - refined white card */
-body.login #loginform {
-  background: #fff !important;
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  border-radius: 12px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+/* Main login container */
+body.login #login {
+  position: relative;
+  z-index: 1;
+  padding: 8% 0 4%;
+  animation: fadeInUp 0.6s ease-out;
 }
-body.login #loginform .input {
-  border-color: #e0e0e0;
-  border-radius: 6px;
-  padding: 10px 14px;
-}
-body.login #loginform .input:focus {
-  border-color: #1a4a3c;
-  box-shadow: 0 0 0 2px rgba(26, 74, 60, 0.2);
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Log In button - college green */
-body.login #wp-submit {
-  background: linear-gradient(135deg, #1a4a3c 0%, #153d32 100%) !important;
-  border: none !important;
-  border-radius: 8px;
-  padding: 10px 24px;
+/* Logo with glow container */
+body.login h1 {
+  text-align: center;
+  margin-bottom: 0.5rem !important;
+}
+/* College tagline (inside form card) */
+body.login .pasfanc-login-tagline,
+body.login .pasf-login-tagline {
+  text-align: center;
+  color: var(--pasf-login-green);
+  font-size: 0.95rem;
   font-weight: 600;
-  text-shadow: none;
-  box-shadow: 0 4px 14px rgba(13, 61, 24, 0.3);
-  transition: transform 0.2s, box-shadow 0.2s;
+  letter-spacing: 0.08em;
+  margin: 0 0 1.25rem 0 !important;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(26, 74, 60, 0.15);
+  font-family: 'Outfit', sans-serif;
 }
-body.login #wp-submit:hover {
-  background: linear-gradient(135deg, #153d32 0%, #1a4a3c 100%) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(13, 61, 24, 0.4);
-}
-
-/* Remember me label */
-body.login .forgetmenot label {
-  color: #333;
-}
-
-/* Links below form */
-body.login #nav a,
-body.login #backtoblog a {
-  color: rgba(255, 255, 255, 0.9) !important;
-  text-decoration: none;
-}
-body.login #nav a:hover,
-body.login #backtoblog a:hover {
-  color: #d4af37 !important;
-  text-decoration: underline;
-}
-
-/* Message box (e.g. "You are now logged out") */
-body.login .message {
-  border-left: 4px solid #d4af37;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 6px;
-  color: #333;
-}
-
-/* Login error messages */
-body.login .login-error {
-  border-left-color: #dc3545;
-}
-
-/* Logo area - ensure enough space */
 body.login h1 a {
   background-repeat: no-repeat !important;
   background-position: center top !important;
-  margin-bottom: 1rem !important;
+  display: inline-block;
+  padding: 20px;
+  margin-bottom: 0 !important;
+  filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.3));
+  transition: transform 0.3s ease;
+}
+body.login h1 a:hover {
+  transform: scale(1.02);
+}
+
+/* Tagline below logo */
+.pasfanc-login-tagline,
+.pasf-login-tagline {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  margin: -0.5rem 0 1.5rem !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Login form card - glassmorphism-style */
+body.login #loginform {
+  background: rgba(255, 255, 255, 0.97) !important;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 16px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  padding: 32px 24px !important;
+  font-family: 'Outfit', -apple-system, sans-serif;
+}
+body.login #loginform p {
+  margin-bottom: 1.25rem;
+}
+
+/* Input fields - modern look */
+body.login #loginform .input {
+  border: 2px solid #e8e8e8;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 15px;
+  font-family: inherit;
+  transition: all 0.25s ease;
+  background: #fafafa;
+}
+body.login #loginform .input:focus {
+  border-color: var(--pasf-login-green);
+  box-shadow: 0 0 0 4px rgba(26, 74, 60, 0.15);
+  outline: none;
+  background: #fff;
+}
+body.login #loginform .input::placeholder {
+  color: #999;
+}
+
+/* Labels */
+body.login #loginform label {
+  font-weight: 500;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+/* Log In button - premium look */
+body.login #wp-submit {
+  background: linear-gradient(135deg, var(--pasf-login-green) 0%, var(--pasf-login-green-dark) 100%) !important;
+  border: none !important;
+  border-radius: 10px;
+  padding: 12px 28px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-shadow: none;
+  color: #fff !important;
+  box-shadow: 0 6px 20px rgba(13, 61, 24, 0.35);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+body.login #wp-submit::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+body.login #wp-submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(13, 61, 24, 0.45);
+}
+body.login #wp-submit:hover::after {
+  left: 100%;
+}
+body.login #wp-submit:active {
+  transform: translateY(-1px);
+}
+
+/* Remember me */
+body.login .forgetmenot {
+  margin-bottom: 1rem;
+}
+body.login .forgetmenot label {
+  color: #444;
+  font-weight: 500;
+  cursor: pointer;
+}
+body.login #rememberme {
+  accent-color: var(--pasf-login-green);
+  width: 18px;
+  height: 18px;
+}
+
+/* Message box */
+body.login .message {
+  border-left: 4px solid var(--pasf-login-gold);
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.08), rgba(255, 255, 255, 0.95));
+  border-radius: 8px;
+  color: #333;
+  padding: 14px 18px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  margin-bottom: 20px;
+}
+
+/* Error message */
+body.login .login-error {
+  border-left-color: #dc3545 !important;
+  background: linear-gradient(90deg, rgba(220, 53, 69, 0.08), rgba(255, 255, 255, 0.95)) !important;
+}
+
+/* Footer links */
+body.login #nav,
+body.login #backtoblog {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+body.login #nav a,
+body.login #backtoblog a {
+  color: rgba(255, 255, 255, 0.95) !important;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+body.login #nav a:hover,
+body.login #backtoblog a:hover {
+  color: var(--pasf-login-gold-light) !important;
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+/* Language switcher */
+body.login .language-switcher {
+  margin-top: 1rem;
 }
