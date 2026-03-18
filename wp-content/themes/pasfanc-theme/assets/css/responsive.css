@@ -49,6 +49,10 @@
   .footer-grid {
     grid-template-columns: 1fr 1fr;
   }
+  .footer-grid-full {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
   /* President, Principal, General Secretary message pages - stack on tablet/mobile */
   .principal-message-page-main .principal-message-content-wrap,
   .president-message-page-main .president-message-content-wrap,
@@ -279,11 +283,51 @@
     width: 100%;
     justify-content: flex-end;
   }
-  /* Branding banner */
+  /* Top bar - hide AQAR links, show compact contact on mobile */
+  .top-bar-right {
+    display: none;
+  }
+  .top-bar-inner {
+    justify-content: center;
+  }
+  .top-bar-contact-full {
+    display: none !important;
+  }
+  .top-bar-contact-short {
+    display: inline !important;
+  }
+  /* Branding banner - stacked, centered */
   .branding-banner .branding-inner {
     flex-direction: column;
     text-align: center;
     gap: 1.25rem;
+  }
+  .branding-main {
+    flex-direction: column;
+    align-items: center;
+  }
+  .branding-motto {
+    margin-left: 0;
+    padding-left: 0;
+    border-left: none;
+    padding-top: 1rem;
+    margin-top: 0.5rem;
+    border-top: 2px solid rgba(255, 255, 255, 0.25);
+    text-align: center;
+  }
+  .branding-motto .motto-label {
+    text-align: center;
+  }
+  .branding-motto .motto-text {
+    text-align: center;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+  .branding-quick-access-mobile {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
   }
   .branding-logo img {
     height: 110px;
@@ -298,12 +342,11 @@
     font-weight: 700;
     letter-spacing: 0.02em;
   }
-  .branding-info .college-subtitle {
+  .branding-info .college-grant,
+  .branding-info .college-affiliation,
+  .branding-info .college-address {
     font-size: 0.9rem;
     line-height: 1.55;
-  }
-  .top-bar-inner {
-    justify-content: center;
   }
   .hero-overlay h1 {
     font-size: 1.75rem;
@@ -471,8 +514,13 @@
   .branding-info .college-name {
     font-size: 1.25rem;
   }
-  .branding-info .college-subtitle {
+  .branding-info .college-grant,
+  .branding-info .college-affiliation,
+  .branding-info .college-address {
     font-size: 0.825rem;
+  }
+  .branding-motto .motto-text {
+    font-size: 0.75rem;
   }
   .gallery-grid,
   .gallery-albums-grid {
@@ -541,7 +589,7 @@
   }
 }
 
-/* ----- TABLET (768px - 1199px) - Balanced layout ----- */
+/* ----- TABLET (768px - 1199px) - Stacked branding ----- */
 @media (min-width: 768px) and (max-width: 1199px) {
   .container {
     padding: 0 1.5rem;
@@ -554,7 +602,28 @@
     padding: 1rem 0 1.25rem;
   }
   .branding-banner .branding-inner {
+    flex-direction: column;
+    text-align: center;
     gap: 1rem;
+  }
+  .branding-main {
+    flex-direction: column;
+    align-items: center;
+  }
+  .branding-motto {
+    margin-left: 0;
+    padding-left: 0;
+    border-left: none;
+    padding-top: 1rem;
+    margin-top: 0.25rem;
+    border-top: 2px solid rgba(255, 255, 255, 0.25);
+    text-align: center;
+  }
+  .branding-quick-access-mobile {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
   }
   .branding-logo img {
     height: 85px;
@@ -592,8 +661,34 @@
     padding-bottom: 2rem;
   }
   .footer-grid-full {
-    gap: 2.5rem;
-    grid-template-columns: 1.8fr 1fr 1fr 1.4fr;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .footer-col {
+    text-align: center;
+    border-left: none !important;
+  }
+  .footer-col.footer-links-col,
+  .footer-col.footer-find {
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  .footer-col.footer-links-col:first-of-type {
+    border-top: none;
+    padding-top: 0;
+  }
+  .footer-about .footer-about-inner {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center;
+  }
+  .footer-about .footer-brand,
+  .footer-about .footer-address,
+  .footer-about .footer-info-col {
+    text-align: center !important;
+  }
+  .footer-links-title {
+    text-align: center;
   }
   .footer-main {
     padding: 2.5rem 0;
@@ -656,10 +751,13 @@
   .branding-info .college-name {
     font-size: 1.2rem;
   }
-  .branding-info .college-subtitle {
+  .branding-info .college-grant,
+  .branding-info .college-affiliation,
+  .branding-info .college-address {
     font-size: 0.8rem;
   }
-  .branding-quick-access {
+  .branding-quick-access,
+  .branding-quick-access-mobile {
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.5rem;
@@ -708,27 +806,98 @@
     padding-bottom: 1.75rem;
   }
   .footer-main {
-    padding: 2.25rem 0;
+    padding: 2rem 0;
   }
   .footer-grid-full {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 2rem;
+  }
+  .footer-col {
+    padding: 0 0.5rem;
+    text-align: center;
+    border-left: none !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
   }
   .footer-col.footer-links-col,
   .footer-col.footer-find {
     border-left: none;
-    padding-left: 0.75rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  .footer-col.footer-links-col:first-of-type {
+    border-top: none;
+    padding-top: 0;
   }
   .footer-about .footer-about-inner {
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
+  .footer-about .footer-logo-col {
+    display: flex;
+    justify-content: center;
+  }
+  .footer-about .footer-brand,
+  .footer-about .footer-address {
+    text-align: center;
+    max-width: 100%;
+  }
+  .footer-about .footer-address {
+    line-height: 1.6;
+    word-break: normal;
+  }
   .footer-about .footer-info-col {
     text-align: center;
+    width: 100%;
+    max-width: 100%;
   }
   .footer-info-col {
     min-width: 0;
+  }
+  .footer-links-title {
+    text-align: center;
+  }
+  .footer-col.footer-links-col ul,
+  .footer-col.footer-links-col .footer-menu,
+  .footer-col.footer-links-col .nav-menu {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem 1rem;
+    justify-items: center;
+    text-align: center;
+  }
+  .footer-col.footer-links-col ul li,
+  .footer-col.footer-links-col .footer-menu li,
+  .footer-col.footer-links-col .nav-menu li {
+    margin-bottom: 0;
+  }
+  .footer-col.footer-links-col ul a,
+  .footer-col.footer-links-col .footer-menu a,
+  .footer-col.footer-links-col .nav-menu a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.35rem 0.5rem;
+    min-height: 44px;
+    white-space: nowrap;
+  }
+  .footer-map-wrap {
+    max-width: 100%;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .footer-map-wrap iframe {
+    max-width: 100%;
+    width: 100% !important;
+  }
+  .footer-find .footer-links-title {
+    text-align: center;
+  }
+  .footer-map-link {
+    text-align: center;
   }
   .btn {
     min-height: 48px;
@@ -758,7 +927,9 @@
   .branding-info .college-name {
     font-size: 1.15rem;
   }
-  .branding-info .college-subtitle {
+  .branding-info .college-grant,
+  .branding-info .college-affiliation,
+  .branding-info .college-address {
     font-size: 0.8rem;
   }
   .main-navigation .nav-menu a,
@@ -783,14 +954,39 @@
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
   }
-  .footer-about .footer-logo {
-    max-width: 75px;
+  .footer-main {
+    padding: 1.75rem 0;
+  }
+  .footer-grid-full {
+    gap: 1.5rem;
+  }
+  .footer-col.footer-links-col,
+  .footer-col.footer-find {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+  .footer-about .footer-logo,
+  .footer-about .footer-logo-link img,
+  .footer-about .footer-logo-wrap img {
+    max-width: 70px;
   }
   .footer-about .footer-brand {
     font-size: 1rem;
+    line-height: 1.35;
+  }
+  .footer-about .footer-address {
+    font-size: 0.85rem;
   }
   .footer-links-title {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
+  }
+  .footer-col.footer-links-col ul,
+  .footer-col.footer-links-col .footer-menu,
+  .footer-col.footer-links-col .nav-menu {
+    font-size: 0.9rem;
+  }
+  .footer-map-wrap iframe {
+    min-height: 180px;
   }
 }
 

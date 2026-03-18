@@ -47,8 +47,16 @@
 .branding-info .college-name {
   color: #fff !important;
 }
-.branding-info .college-subtitle {
+.branding-info .college-grant,
+.branding-info .college-affiliation,
+.branding-info .college-address {
   color: #c9b85c !important;
+}
+.top-bar-right a {
+  color: #c9b85c !important;
+}
+.top-bar-right a:hover {
+  color: #d4af37 !important;
 }
 .quick-access-chip {
   color: #d4af37 !important;
@@ -1347,4 +1355,39 @@
 }
 .footer-bottom-extra .powered-by a:hover {
   color: #ffe066 !important;
+}
+
+/* Footer - mobile & tablet: single column, centered (override desktop 4-col) */
+@media (max-width: 1199px) {
+  .footer-grid-full {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+  .footer-col {
+    border-left: none !important;
+    padding-left: 1rem !important;
+    text-align: center;
+  }
+  .footer-col.footer-links-col,
+  .footer-col.footer-find {
+    border-left: none !important;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  .footer-col.footer-links-col:first-of-type {
+    border-top: none;
+    padding-top: 0;
+  }
+  .footer-about .footer-about-inner {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  .footer-about .footer-brand,
+  .footer-about .footer-address,
+  .footer-about .footer-info-col {
+    text-align: center !important;
+  }
+  .footer-links-title {
+    text-align: center;
+  }
 }
