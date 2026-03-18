@@ -37,15 +37,7 @@
 .top-bar-contact:hover {
   color: #d4af37 !important;
 }
-.top-bar-right a {
-  color: #c9b85c !important;
-  font-weight: 700;
-}
-.top-bar-right a:hover {
-  color: #d4af37 !important;
-}
-.top-bar-left .top-bar-sep,
-.top-bar-right .top-bar-sep {
+.top-bar-left .top-bar-sep {
   color: #c9b85c !important;
 }
 .branding-banner {
@@ -55,19 +47,18 @@
 .branding-info .college-name {
   color: #fff !important;
 }
-.branding-info .college-grant,
-.branding-info .college-affiliation,
-.branding-info .college-address {
+.branding-info .college-subtitle {
   color: #c9b85c !important;
 }
-.branding-motto .motto-label {
-  color: #c9b85c !important;
+.quick-access-chip {
+  color: #d4af37 !important;
+  border-color: rgba(212, 175, 55, 0.4) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
 }
-.branding-motto .motto-text {
+.quick-access-chip:hover {
   color: #fff !important;
-}
-.branding-motto {
-  border-left-color: rgba(201, 184, 92, 0.6);
+  background: rgba(212, 175, 55, 0.3) !important;
+  border-color: rgba(212, 175, 55, 0.6) !important;
 }
 .site-header {
   background: #1a4a3c !important;
@@ -311,7 +302,7 @@
    ============================================ */
 .section-header {
   text-align: center;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
   position: relative;
 }
 .section-header::before {
@@ -858,7 +849,7 @@
   background-clip: text;
   letter-spacing: 0.02em;
 }
-/* Testimonial cards - scroll layout */
+/* Testimonial cards - carousel, single card */
 .testimonial-card {
   position: relative;
   overflow: hidden;
@@ -867,23 +858,8 @@
   border-radius: 14px;
   border: 1px solid var(--futur-glass-border);
   box-shadow: var(--futur-shadow), var(--futur-shadow-glow);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.testimonial-card:nth-child(1),
-.testimonial-card:nth-child(5) {
   background: linear-gradient(145deg, rgba(232, 248, 238, 0.98) 0%, rgba(255, 255, 255, 0.95) 100%);
-}
-.testimonial-card:nth-child(2),
-.testimonial-card:nth-child(6) {
-  background: linear-gradient(145deg, rgba(224, 242, 241, 0.98) 0%, rgba(255, 255, 255, 0.95) 100%);
-}
-.testimonial-card:nth-child(3),
-.testimonial-card:nth-child(7) {
-  background: linear-gradient(145deg, rgba(240, 248, 235, 0.98) 0%, rgba(255, 255, 255, 0.95) 100%);
-}
-.testimonial-card:nth-child(4),
-.testimonial-card:nth-child(8) {
-  background: linear-gradient(145deg, rgba(235, 248, 242, 0.98) 0%, rgba(255, 255, 255, 0.95) 100%);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .testimonial-card::before {
   content: '';
@@ -933,7 +909,7 @@
   border-top: 1px solid rgba(26, 95, 42, 0.1);
 }
 .news-highlights-wrapper .section-header {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 .news-highlights-wrapper .section-title {
   font-size: 1.5rem;
@@ -1100,7 +1076,7 @@
 
 /* Admissions CTA - dark green box, plus pattern, yellow accent (matches image) */
 .cta-section {
-  padding: 3rem 1.5rem;
+  padding: 2rem 1.5rem;
   position: relative;
 }
 .cta-section.cta-section-admissions {
@@ -1108,7 +1084,7 @@
   position: relative;
   overflow: hidden;
   border-radius: 24px;
-  margin: 2rem auto;
+  margin: 1.5rem auto;
   max-width: 900px;
   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
@@ -1124,7 +1100,7 @@
   position: relative;
   z-index: 1;
   text-align: center;
-  padding: 2.5rem 2rem;
+  padding: 1.5rem 2rem;
 }
 .cta-accent-line {
   width: 80px;
@@ -1143,7 +1119,7 @@
 .cta-section .cta-tagline {
   font-size: 1rem;
   color: rgba(255, 255, 255, 0.85);
-  margin: 0 0 2rem;
+  margin: 0 0 1.5rem;
   line-height: 1.6;
   max-width: 520px;
   margin-left: auto;
@@ -1216,7 +1192,7 @@
   z-index: 1;
 }
 .footer-grid-full {
-  grid-template-columns: 1.4fr 1fr 1fr 1.6fr;
+  grid-template-columns: 2.2fr 1fr 1fr 1.6fr;
   gap: 3rem;
   align-items: start;
 }
@@ -1238,29 +1214,36 @@
 }
 .footer-about .footer-about-inner {
   display: flex;
-  gap: 1.5rem;
-  align-items: flex-start;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
 }
 .footer-about .footer-logo-col {
   flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.footer-about .footer-info-col {
+  text-align: center;
 }
 .footer-about .footer-logo {
-  max-width: 120px;
+  max-width: 85px;
   height: auto;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 .footer-about .footer-brand {
-  font-size: 1.35rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
-  margin-bottom: 0.85rem;
-  line-height: 1.3;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.4rem;
+  line-height: 1.4;
   color: #fff;
 }
 .footer-about .footer-address {
-  font-size: 0.9rem;
-  line-height: 1.8;
+  font-size: 0.875rem;
+  line-height: 1.7;
   opacity: 0.92;
   font-style: normal;
 }
@@ -1353,6 +1336,11 @@
   gap: 1.5rem;
 }
 /* Powered by - bright golden */
+.footer-bottom-extra .site-visitors .visitor-count {
+  color: #ffd700 !important;
+  background: rgba(255, 215, 0, 0.12);
+  border-color: rgba(255, 215, 0, 0.4);
+}
 .footer-bottom-extra .powered-by,
 .footer-bottom-extra .powered-by a {
   color: #ffd700 !important;

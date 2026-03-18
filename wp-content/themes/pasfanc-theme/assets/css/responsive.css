@@ -10,6 +10,17 @@
   .about-section .about-grid {
     grid-template-columns: 1fr;
   }
+  .about-page-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .about-page-sidebar {
+    position: static;
+    max-width: 280px;
+    margin: 0 auto 1rem auto;
+  }
+  .about-page-explore-grid {
+    grid-template-columns: 1fr;
+  }
   .about-image-wrap,
   .about-image {
     order: -1;
@@ -31,25 +42,53 @@
   .news-highlights-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .gallery-grid {
+  .gallery-grid,
+  .gallery-albums-grid {
     grid-template-columns: repeat(3, 1fr);
-  }
-  .testimonial-card {
-    flex: 0 0 300px;
-    min-width: 300px;
   }
   .footer-grid {
     grid-template-columns: 1fr 1fr;
   }
-  .footer-about-inner {
-    flex-direction: row;
+  /* President, Principal, General Secretary message pages - stack on tablet/mobile */
+  .principal-message-page-main .principal-message-content-wrap,
+  .president-message-page-main .president-message-content-wrap,
+  .secretary-message-page-main .secretary-message-content-wrap {
+    grid-template-columns: 1fr !important;
+    text-align: center;
+  }
+  .principal-message-page-main .principal-message-image,
+  .president-message-page-main .president-message-image,
+  .secretary-message-page-main .secretary-message-image {
+    justify-self: center;
+    order: -1;
+  }
+  .principal-message-page-main .principal-message-entry,
+  .president-message-page-main .president-message-entry,
+  .secretary-message-page-main .secretary-message-entry {
+    text-align: left;
+  }
+  .principal-message-page-main .principal-message-image img,
+  .president-message-page-main .president-message-image img,
+  .secretary-message-page-main .secretary-message-image img {
+    max-width: 200px;
+    margin: 0 auto;
+  }
+  .president-message-page-main .president-message-page-container,
+  .principal-message-page-main .principal-message-page-container,
+  .secretary-message-page-main .secretary-message-page-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 100%;
   }
 }
 
-/* Desktop: horizontal nav, hide hamburger */
+/* Desktop: horizontal nav, hide hamburger, overlay is transparent wrapper */
 @media (min-width: 993px) {
   .menu-toggle {
     display: none !important;
+  }
+  .mobile-menu-overlay {
+    display: contents;
   }
   .header-inner {
     flex-direction: row !important;
@@ -60,6 +99,7 @@
   #site-navigation {
     flex-direction: row !important;
   }
+  .main-navigation .mobile-menu-overlay .nav-menu,
   .main-navigation .nav-menu,
   #primary-menu.nav-menu,
   #site-navigation .nav-menu {
@@ -82,8 +122,9 @@
   }
 }
 
-/* Mobile/Tablet: hamburger menu - show toggle, collapse nav */
+/* Mobile/Tablet: Don Bosco-style hamburger + right sidebar overlay */
 @media (max-width: 992px) {
+  /* Hamburger button - Don Bosco style: rounded dark button with border */
   .menu-toggle {
     display: flex !important;
     align-items: center;
@@ -92,10 +133,16 @@
     height: 48px;
     padding: 0;
     margin-left: auto;
-    background: transparent;
-    border: none;
+    background: rgba(40, 55, 65, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
     cursor: pointer;
     color: #fff;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .menu-toggle:hover {
+    background: rgba(50, 65, 75, 0.95);
+    border-color: rgba(255, 255, 255, 0.4);
   }
   .menu-toggle-icon,
   .menu-toggle-icon::before,
@@ -140,41 +187,85 @@
     justify-content: flex-end;
     align-items: center;
   }
-  .main-navigation .nav-menu,
-  .main-navigation #primary-menu,
-  #primary-menu.nav-menu,
-  #site-navigation .nav-menu {
-    display: none !important;
-    flex-direction: column !important;
-    width: 100%;
-    list-style: none !important;
+  /* Overlay: full-screen backdrop + right sidebar container */
+  .mobile-menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    display: flex;
+    justify-content: flex-end;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+    overflow: hidden;
+  }
+  .mobile-menu-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 15, 35, 0.65);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  .main-navigation.toggled .mobile-menu-overlay {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  /* Sidebar: dark navy panel sliding in from right - must scroll independently */
+  .mobile-menu-overlay .nav-menu,
+  .mobile-menu-overlay #primary-menu {
+    position: relative;
+    z-index: 1;
+    width: 70%;
+    max-width: 320px;
+    height: 100vh;
+    max-height: 100dvh;
+    min-height: 0;
     margin: 0;
-    padding: 0.5rem 0;
-    border-top: 1px solid rgba(255,255,255,0.2);
-    margin-top: 0.5rem;
-  }
-  .main-navigation.toggled .nav-menu,
-  .main-navigation.toggled #primary-menu,
-  #site-navigation.toggled .nav-menu,
-  #site-navigation.toggled #primary-menu {
+    padding: 0;
+    padding-top: env(safe-area-inset-top, 0);
+    background: var(--pasf-primary, #1a4a3c);
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.35);
+    list-style: none !important;
     display: flex !important;
+    flex-direction: column !important;
+    flex-shrink: 0;
+    overflow-y: scroll !important;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    touch-action: pan-y;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-out;
   }
-  .main-navigation .nav-menu li,
-  #primary-menu.nav-menu li {
+  .main-navigation.toggled .mobile-menu-overlay .nav-menu,
+  .main-navigation.toggled .mobile-menu-overlay #primary-menu {
+    transform: translateX(0);
+  }
+  .mobile-menu-overlay .nav-menu li,
+  .mobile-menu-overlay #primary-menu li {
     list-style: none !important;
     display: block !important;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
-  .main-navigation .nav-menu li:not(:last-child)::after,
-  #primary-menu.nav-menu li:not(:last-child)::after {
+  .mobile-menu-overlay .nav-menu li:not(:last-child)::after,
+  .mobile-menu-overlay #primary-menu li:not(:last-child)::after {
     display: none !important;
   }
-  .main-navigation .nav-menu a,
-  #primary-menu.nav-menu a {
+  .mobile-menu-overlay .nav-menu a,
+  .mobile-menu-overlay #primary-menu a {
     display: block !important;
-    padding: 0.85rem 1rem;
+    padding: 0.85rem 1.25rem;
     color: #fff !important;
     font-size: 0.95rem;
+    font-weight: 600;
+  }
+  /* Keep header above overlay so hamburger stays clickable */
+  body.menu-open .site-header {
+    z-index: 9999;
+    position: relative;
   }
 }
 
@@ -207,27 +298,12 @@
     font-weight: 700;
     letter-spacing: 0.02em;
   }
-  .branding-info .college-grant,
-  .branding-info .college-affiliation,
-  .branding-info .college-address {
+  .branding-info .college-subtitle {
     font-size: 0.9rem;
     line-height: 1.55;
   }
-  .branding-motto {
-    margin-left: 0;
-    margin-top: 0.5rem;
-    padding-left: 0;
-    padding-top: 0.75rem;
-    border-left: none;
-    border-top: 2px solid rgba(255, 255, 255, 0.4);
-    text-align: center;
-  }
-  .branding-motto .motto-text {
-    font-size: 1.05rem;
-  }
   .top-bar-inner {
-    flex-direction: column;
-    text-align: center;
+    justify-content: center;
   }
   .hero-overlay h1 {
     font-size: 1.75rem;
@@ -235,23 +311,44 @@
   .principal-section .principal-inner {
     grid-template-columns: 1fr;
   }
-  .president-section .president-inner {
+  .president-section .president-inner,
+  .secretary-section .secretary-inner {
     grid-template-columns: 1fr;
     text-align: center;
   }
-  .president-section .president-image {
+  .president-section .president-image,
+  .secretary-section .secretary-image {
     justify-self: center;
   }
-  .principal-message-page-main .principal-message-content-wrap {
-    grid-template-columns: 1fr;
+  .principal-message-page-main .principal-message-content-wrap,
+  .president-message-page-main .president-message-content-wrap,
+  .secretary-message-page-main .secretary-message-content-wrap {
+    grid-template-columns: 1fr !important;
     text-align: center;
+    padding: 1.25rem;
   }
-  .principal-message-page-main .principal-message-image {
+  .principal-message-page-main .principal-message-image,
+  .president-message-page-main .president-message-image,
+  .secretary-message-page-main .secretary-message-image {
     justify-self: center;
+    order: -1;
   }
-  .principal-message-page-main .principal-message-image img {
+  .principal-message-page-main .principal-message-entry,
+  .president-message-page-main .president-message-entry,
+  .secretary-message-page-main .secretary-message-entry {
+    text-align: left;
+    min-width: 0;
+    width: 100%;
+  }
+  .principal-message-page-main .principal-message-image img,
+  .president-message-page-main .president-message-image img,
+  .secretary-message-page-main .secretary-message-image img {
     max-width: 180px;
     margin: 0 auto;
+  }
+  .president-message-page-main .president-signature,
+  .secretary-message-page-main .secretary-signature {
+    text-align: left;
   }
   .contact-page-grid {
     grid-template-columns: 1fr;
@@ -339,11 +436,8 @@
   .news-highlights-grid {
     grid-template-columns: 1fr;
   }
-  .testimonial-card {
-    flex: 0 0 280px;
-    min-width: 280px;
-  }
-  .gallery-grid {
+  .gallery-grid,
+  .gallery-albums-grid {
     grid-template-columns: repeat(2, 1fr);
   }
   .footer-grid {
@@ -354,13 +448,21 @@
   }
 }
 
-/* 480px - logo, gallery, cta (nav stays horizontal at all sizes) */
+/* 480px - compact 2x2 stats grid, logo, gallery, cta */
 @media (max-width: 480px) {
   .quick-facts-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem;
+  }
+  .quick-fact-item {
+    padding: 0.5rem 0.35rem;
+    min-height: 56px;
   }
   .quick-fact-value {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
+  }
+  .quick-fact-label {
+    font-size: 0.8rem;
   }
   .branding-logo img {
     height: 90px;
@@ -369,25 +471,16 @@
   .branding-info .college-name {
     font-size: 1.25rem;
   }
-  .branding-info .college-grant,
-  .branding-info .college-affiliation,
-  .branding-info .college-address {
+  .branding-info .college-subtitle {
     font-size: 0.825rem;
   }
-  .branding-motto .motto-text {
-    font-size: 0.95rem;
-  }
-  .gallery-grid {
+  .gallery-grid,
+  .gallery-albums-grid {
     grid-template-columns: 1fr;
   }
   .cta-section .btn {
     display: block;
     margin: 0.5rem 0;
-  }
-  /* Keep logo left, content right even on small screens */
-  .footer-about-inner {
-    flex-direction: row;
-    flex-wrap: nowrap;
   }
   .footer-logo-link img,
   .footer-logo,
@@ -424,17 +517,24 @@
     font-size: 1rem;
     padding: 0.35rem 0.5rem;
   }
+  .section {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
   .section .container,
   .about-section .container,
   .guiding-section .container {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
   }
   .hero-section {
     height: 720px;
   }
+  .section-title {
+    margin-bottom: 1.15rem;
+  }
   .footer-main {
-    padding: 4.5rem 0;
+    padding: 3rem 0;
   }
   .footer-grid-full {
     gap: 3.5rem;
@@ -446,41 +546,22 @@
   .container {
     padding: 0 1.5rem;
   }
-  .top-bar-inner {
-    flex-direction: row;
-    justify-content: space-between;
-  }
   .top-bar {
-    padding: 0.25rem 0;
+    padding: 0.35rem 0;
     font-size: 0.85rem;
   }
   .branding-banner {
-    padding: 0.45rem 0;
+    padding: 1rem 0 1.25rem;
   }
   .branding-banner .branding-inner {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 1.25rem;
-    justify-content: center;
+    gap: 1rem;
   }
   .branding-logo img {
-    height: 90px;
-    max-width: 90px;
+    height: 85px;
+    max-width: 95px;
   }
-  .branding-info {
-    flex: 1 1 100%;
-    text-align: center;
-    min-width: 0;
-  }
-  .branding-motto {
-    flex: 1 1 100%;
-    margin-left: 0;
-    border-left: none;
-    border-top: 2px solid rgba(255, 255, 255, 0.4);
-    padding-left: 0;
-    padding-top: 0.5rem;
-    margin-top: 0.35rem;
-    text-align: center;
+  .branding-info .college-name {
+    font-size: 1.2rem;
   }
   .main-navigation .nav-menu,
   #primary-menu.nav-menu {
@@ -499,16 +580,23 @@
   .hero-overlay h1 {
     font-size: 1.9rem;
   }
+  .section-title {
+    margin-bottom: 1.1rem;
+  }
+  .section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
   .section .container {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
   .footer-grid-full {
     gap: 2.5rem;
-    grid-template-columns: 1.4fr 1fr 1fr 1.4fr;
+    grid-template-columns: 1.8fr 1fr 1fr 1.4fr;
   }
   .footer-main {
-    padding: 3.5rem 0;
+    padding: 2.5rem 0;
   }
 }
 
@@ -517,54 +605,69 @@
   .container {
     padding: 0 1rem;
   }
+  .quick-facts-section {
+    padding: 1rem 0.75rem;
+  }
+  .quick-facts-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .quick-fact-item {
+    padding: 0.5rem 0.4rem;
+  }
+  .quick-fact-value {
+    font-size: 1.65rem;
+  }
+  .quick-fact-label {
+    font-size: 0.85rem;
+  }
+  .quick-facts-welcome {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+  }
   .top-bar {
     padding: 0.25rem 0;
     font-size: 0.8rem;
   }
   .top-bar-inner {
-    flex-direction: column;
-    gap: 0.5rem;
-    text-align: center;
-  }
-  .top-bar-left,
-  .top-bar-right {
     justify-content: center;
+  }
+  .top-bar-left {
+    flex-wrap: nowrap;
+    gap: 0.75rem;
   }
   .top-bar-contact {
     min-height: 44px;
+    min-width: 44px;
     align-items: center;
     justify-content: center;
-  }
-  .top-bar-right a {
-    min-height: 44px;
-    padding: 0.5rem 0.75rem;
-    display: inline-flex;
-    align-items: center;
+    flex-shrink: 0;
   }
   .branding-banner {
-    padding: 0.45rem 0;
+    padding: 1rem 0 1.25rem;
   }
   .branding-banner .branding-inner {
-    flex-direction: column;
-    text-align: center;
-    gap: 0.75rem;
+    gap: 1rem;
   }
   .branding-logo img {
-    height: 85px;
+    height: 75px;
     max-width: 85px;
-    margin: 0 auto;
   }
   .branding-info .college-name {
-    font-size: 1.35rem;
+    font-size: 1.2rem;
   }
-  .branding-motto {
-    margin-left: 0;
-    padding-left: 0;
-    border-left: none;
-    border-top: 2px solid rgba(255, 255, 255, 0.4);
-    padding-top: 0.5rem;
-    margin-top: 0.35rem;
-    text-align: center;
+  .branding-info .college-subtitle {
+    font-size: 0.8rem;
+  }
+  .branding-quick-access {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .quick-access-chip {
+    min-height: 42px;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.8rem;
   }
   .site-header .header-inner {
     padding: 0.3rem 0;
@@ -593,12 +696,19 @@
   .hero-overlay h1 {
     font-size: 1.5rem;
   }
+  .section {
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
+  }
+  .section-title {
+    margin-bottom: 1rem;
+  }
   .section .container {
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
   }
   .footer-main {
-    padding: 3rem 0;
+    padding: 2.25rem 0;
   }
   .footer-grid-full {
     grid-template-columns: 1fr;
@@ -614,6 +724,12 @@
     align-items: center;
     text-align: center;
   }
+  .footer-about .footer-info-col {
+    text-align: center;
+  }
+  .footer-info-col {
+    min-width: 0;
+  }
   .btn {
     min-height: 48px;
     padding: 0.85rem 1.5rem;
@@ -628,8 +744,12 @@
   .top-bar {
     font-size: 0.75rem;
   }
+  .top-bar .top-bar-contact {
+    font-size: 0.7rem;
+  }
+  .top-bar-contact,
   .top-bar-contact span {
-    word-break: break-all;
+    white-space: nowrap;
   }
   .branding-logo img {
     height: 85px;
@@ -638,18 +758,13 @@
   .branding-info .college-name {
     font-size: 1.15rem;
   }
-  .branding-info .college-grant,
-  .branding-info .college-affiliation,
-  .branding-info .college-address {
+  .branding-info .college-subtitle {
     font-size: 0.8rem;
-  }
-  .branding-motto .motto-text {
-    font-size: 0.9rem;
   }
   .main-navigation .nav-menu a,
   #primary-menu.nav-menu a {
-    font-size: 0.7rem;
-    padding: 0.45rem 0.25rem;
+    font-size: 0.85rem;
+    padding: 0.65rem 1rem;
   }
   .hero-section {
     height: 320px;
@@ -657,17 +772,322 @@
   .hero-overlay h1 {
     font-size: 1.25rem;
   }
+  .section {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+  .section-title {
+    margin-bottom: 0.9rem;
+  }
   .section .container {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
   }
   .footer-about .footer-logo {
-    max-width: 100px;
+    max-width: 75px;
   }
   .footer-about .footer-brand {
-    font-size: 1.15rem;
+    font-size: 1rem;
   }
   .footer-links-title {
     font-size: 0.75rem;
+  }
+}
+
+/* ==========================================================================
+   Mobile Enhancements - Touch-friendly, accessible, polished
+   ========================================================================== */
+
+/* ----- Mobile sub-menus (max-width: 992px) - Accordion style ----- */
+@media (max-width: 992px) {
+  .main-navigation .menu-item-has-children {
+    position: static;
+  }
+  .main-navigation .sub-menu,
+  #primary-menu .sub-menu,
+  .mobile-menu-overlay .sub-menu {
+    display: none;
+    position: static;
+    min-width: auto;
+    box-shadow: none;
+    padding: 0 0 0 1rem;
+    margin: 0.5rem 0 0 0;
+    border-left: 3px solid rgba(212, 175, 55, 0.6);
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 0 6px 6px 0;
+  }
+  /* Mobile sidebar submenu: use site color (slightly darker) */
+  .mobile-menu-overlay .sub-menu {
+    background: var(--pasf-primary-dark, #153d32);
+    border-left-color: var(--pasf-accent, rgba(212, 175, 55, 0.8));
+  }
+  .main-navigation .menu-item-has-children.submenu-open > .sub-menu,
+  #primary-menu .menu-item-has-children.submenu-open > .sub-menu,
+  .mobile-menu-overlay .menu-item-has-children.submenu-open > .sub-menu {
+    display: block;
+  }
+  .main-navigation .sub-menu li,
+  #primary-menu .sub-menu li {
+    border-bottom: none;
+  }
+  .main-navigation .sub-menu li:last-child,
+  #primary-menu .sub-menu li:last-child {
+    border-bottom: none;
+  }
+  .main-navigation .sub-menu a,
+  #primary-menu .sub-menu a {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  .main-navigation .menu-item-has-children > a {
+    min-height: 48px;
+    padding: 0.85rem 1rem;
+  }
+}
+
+/* ----- Flash News mobile - compact, label overlaps track ----- */
+@media (max-width: 768px) {
+  .flash-news-bar,
+  .flash-news-wrapper {
+    padding: 0.5rem 0.75rem;
+  }
+  .flash-news-bar .pasf-flash-track,
+  .flash-news-wrapper .pasf-flash-track {
+    margin-left: -130px;
+  }
+  .flash-news-bar .pasf-flash-label,
+  .flash-news-wrapper .pasf-flash-label {
+    font-size: 0.85rem;
+    padding: 0.25rem 0.6rem 0.25rem 0.5rem;
+  }
+  .flash-news-bar .pasf-flash-track .pasf-flash-item,
+  .flash-news-wrapper .pasf-flash-track .pasf-flash-item {
+    font-size: 0.85rem;
+    padding: 0.35rem 0.65rem;
+  }
+  .flash-news-bar .pasf-flash-track .pasf-flash-item-icon,
+  .flash-news-wrapper .pasf-flash-track .pasf-flash-item-icon,
+  .flash-news-bar .pasf-flash-track .pasf-flash-item-new-badge img,
+  .flash-news-wrapper .pasf-flash-track .pasf-flash-item-new-badge img {
+    width: 20px;
+    height: 20px;
+  }
+  .hero-overlay .hero-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .flash-news-bar,
+  .flash-news-wrapper {
+    padding: 0.45rem 0.5rem;
+  }
+  .flash-news-bar .pasf-flash-track,
+  .flash-news-wrapper .pasf-flash-track {
+    margin-left: -110px;
+  }
+  .flash-news-bar .pasf-flash-label,
+  .flash-news-wrapper .pasf-flash-label {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem 0.2rem 0.4rem;
+  }
+  .flash-news-bar .pasf-flash-track .pasf-flash-item,
+  .flash-news-wrapper .pasf-flash-track .pasf-flash-item {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.55rem;
+  }
+  .hero-overlay .hero-subtitle {
+    font-size: 0.875rem;
+  }
+}
+
+/* ----- Top bar mobile (480px) - compact touch targets ----- */
+@media (max-width: 480px) {
+  .top-bar-contact {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* ----- Contact form - prevent iOS zoom, touch-friendly ----- */
+@media (max-width: 768px) {
+  .contact-form-card .pasf-contact-form input[type="text"],
+  .contact-form-card .pasf-contact-form input[type="email"],
+  .contact-form-card .pasf-contact-form input[type="tel"],
+  .contact-form-card .pasf-contact-form textarea {
+    font-size: 16px;
+    min-height: 48px;
+    padding: 0.75rem 1rem;
+  }
+  .contact-form-card .pasf-contact-form textarea {
+    min-height: 120px;
+  }
+  .contact-form-card .pasf-contact-form .btn {
+    min-height: 48px;
+    padding: 0.85rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* ----- Tables - horizontal scroll on mobile ----- */
+@media (max-width: 768px) {
+  .foundation-members-table-wrap,
+  .fee-structure-table-wrap,
+  .governing-body-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 1rem -0.5rem;
+    padding: 0 0.5rem;
+  }
+  .foundation-members-table-wrap table,
+  .governing-body-table {
+    min-width: 360px;
+  }
+  .fee-structure-table {
+    min-width: 340px;
+  }
+}
+
+/* ----- Gallery filters - horizontal scroll when many ----- */
+@media (max-width: 768px) {
+  .gallery-filters {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 0.5rem;
+  }
+  .gallery-filters::-webkit-scrollbar {
+    display: none;
+  }
+  .gallery-filter-btn {
+    flex-shrink: 0;
+    min-height: 44px;
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* ----- Sticky header on mobile - nav always accessible ----- */
+@media (max-width: 992px) {
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--pasf-primary, #1a4a3c);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* ----- Cards and buttons - adequate touch targets ----- */
+@media (max-width: 768px) {
+  .why-choose-card,
+  .guiding-card,
+  .course-card,
+  .course-card-page,
+  .download-item,
+  .news-events-card,
+  .about-page-explore-card {
+    padding: 1.25rem;
+  }
+  .about-page-explore-card {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+  }
+  .btn,
+  .btn-primary,
+  .btn-outline {
+    min-height: 48px;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* ----- Testimonial carousel - responsive width ----- */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .testimonial-carousel-wrap {
+    max-width: 640px;
+  }
+  .testimonial-card {
+    max-width: 600px;
+    padding: 2rem 1.75rem;
+  }
+}
+@media (max-width: 768px) {
+  .testimonial-carousel-wrap {
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .testimonial-card {
+    max-width: 100%;
+    padding: 1.75rem 1.25rem;
+  }
+  .testimonial-swiper .swiper-button-prev,
+  .testimonial-swiper .swiper-button-next {
+    width: 36px;
+    height: 36px;
+  }
+  .testimonial-swiper .swiper-button-prev::after,
+  .testimonial-swiper .swiper-button-next::after {
+    font-size: 1rem;
+  }
+}
+
+/* ----- Breadcrumb - horizontal scroll ----- */
+@media (max-width: 768px) {
+  .pasfanc-breadcrumb .container,
+  .breadcrumb-nav .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* ----- Question papers filter - stack on mobile ----- */
+@media (max-width: 576px) {
+  .question-papers-filter-row {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .question-papers-filter-actions {
+    flex-direction: column;
+  }
+  .question-papers-filter-actions .btn {
+    width: 100%;
+  }
+  .question-papers-select {
+    min-height: 48px;
+    font-size: 16px;
+  }
+}
+
+/* ----- Body scroll lock when mobile menu open ----- */
+/* On desktop only: body scroll lock. On mobile, omit it so the fixed sidebar can scroll.
+   iOS/Android block touch-scroll in fixed overlays when body has overflow:hidden. */
+@media (min-width: 993px) {
+  body.menu-open {
+    overflow: hidden;
+  }
+}
+
+/* ----- Safe area for notched devices (iPhone X+, Android) ----- */
+@supports (padding: env(safe-area-inset-top)) {
+  @media (max-width: 992px) {
+    .site-header {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+    .site-header .header-inner {
+      padding-left: max(1rem, env(safe-area-inset-left));
+    }
+  }
+}
+@media (max-width: 768px) {
+  .container {
+    padding-left: max(1rem, env(safe-area-inset-left, 0px));
+    padding-right: max(1rem, env(safe-area-inset-right, 0px));
   }
 }
