@@ -244,7 +244,7 @@ function pasfanc_admin_favicon() {
 		$icon_url = $logo ? wp_get_attachment_image_url( $logo, array( 32, 32 ) ) : '';
 	}
 	if ( ! $icon_url ) {
-		$icon_url = PASFANC_THEME_URI . '/assets/images/pasf-logo.png';
+		$icon_url = PASFANC_THEME_URI . '/assets/images/favicon.png';
 	}
 	if ( $icon_url ) {
 		echo '<link rel="icon" href="' . esc_url( $icon_url ) . '" sizes="32x32" />' . "\n";
